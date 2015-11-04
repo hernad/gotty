@@ -30,6 +30,7 @@ const (
 	Input          = '0'
 	Ping           = '1'
 	ResizeTerminal = '2'
+	DownloadFile   = '3'
 )
 
 const (
@@ -43,6 +44,10 @@ const (
 type argResizeTerminal struct {
 	Columns float64
 	Rows    float64
+}
+
+type argsDownloadFile struct {
+	Name    string
 }
 
 type ContextVars struct {
@@ -207,6 +212,15 @@ func (context *clientContext) processReceive() {
 				syscall.TIOCSWINSZ,
 				uintptr(unsafe.Pointer(&window)),
 			)
+
+    case DownloadFile:
+			var args argsDownloadFile
+			err = json.Unmarshal(data[1:], &args)
+			if err != nil {
+				log.Print("Malformed remote command")
+				return
+			}
+		  log.Print(args.Name)
 
 		default:
 			log.Print("Unknown message type")

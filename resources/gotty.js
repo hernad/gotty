@@ -28,7 +28,9 @@
 
                 io.onVTKeystroke = function(str) {
                     ws.send("0" + str);
+                    //console.log( "keystroke:", str );
                 };
+
 
                 io.sendString = io.onVTKeystroke;
 
@@ -46,6 +48,11 @@
                 term.installKeyboard();
             };
 
+            term.onSetWindowTitle = function(str) {
+                //ws.send("3" + str);
+                alert( "gotty set window title:" + str );
+            };
+
             term.decorate(document.getElementById("terminal"));
         };
 
@@ -59,6 +66,7 @@
                 // pong
                 break;
             case '2':
+                console.log("set window title:" + data);
                 term.setWindowTitle(data);
                 break;
             case '3':
