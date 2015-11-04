@@ -50,7 +50,7 @@
 
             term.onSetWindowTitle = function(str) {
                 //ws.send("3" + str);
-                alert( "gotty set window title:" + str );
+                console.log( "hernad GOTTY:" + str );
             };
 
             term.decorate(document.getElementById("terminal"));
